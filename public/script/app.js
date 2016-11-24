@@ -5,7 +5,8 @@
     var app = angular.module('pammSkeleton', [
         'pammSkeleton.controllers',
         'pammSkeleton.services',
-        'ngRoute' ]);
+        'ngRoute',
+         'ngMessages']);
 
     app.config(['$routeProvider', function($routeProvider) {
             $routeProvider

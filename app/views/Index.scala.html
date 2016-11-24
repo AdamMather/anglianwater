@@ -15,7 +15,14 @@
     <!-- Angular -->
     <script src="/assets/lib/angularjs/angular.min.js"></script>
     <script src="/assets/lib/angularjs/angular-route.min.js"></script>
+    <!-- Message Component -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
     <script type="text/javascript" src="/assets/script/app.js"></script>
+
+    <!-- Geolocation Component -->
+    <script type="text/javascript" src="/assets/geolocation/script/googleapi.js"></script>
+    <script type="text/javascript" src="/assets/geolocation/script/binaryajax.js"></script>
+    <script type="text/javascript" src="/assets/geolocation/script/exif.js"></script>
 
     <script type="text/javascript" src="/controllers/homeController.js"></script>
     <script type="text/javascript" src="/controllers/aboutController.js"></script>
@@ -39,14 +46,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">PAMM Skeleton</a>
+                <a class="navbar-brand" style="height: 105px"><img src="/assets/images/aw_logo.png" width="162px" height="70px" alt="Anglian Water Logo" /></a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <!-- These are all our nav bar items (excluding brand, button etc) -->
+                <!--
                 <ul class="nav navbar-nav">
                     <li ng-class="{ active: isActive('/home')}"><a href="#">Home</a></li>
                     <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
                 </ul>
+                -->
             </div>
         </div>
     </nav>
