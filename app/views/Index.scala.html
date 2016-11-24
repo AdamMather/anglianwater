@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PAMM Skeleton</title>
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+
+    <!-- jQuery -->
+    <script src="/assets/lib/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Angular -->
+    <script src="/assets/lib/angularjs/angular.min.js"></script>
+    <script src="/assets/lib/angularjs/angular-route.min.js"></script>
+    <script type="text/javascript" src="/assets/script/app.js"></script>
+
+    <script type="text/javascript" src="/controllers/homeController.js"></script>
+    <script type="text/javascript" src="/controllers/aboutController.js"></script>
+    <script type="text/javascript" src="/controllers/navbarController.js"></script>
+    <script type="text/javascript" src="/services/helloWorldService.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body ng-app="pammSkeleton">
+
+    <!-- This is the global nav bar, this will appear at the top of all pages -->
+    <nav class="navbar navbar-default navbar-static-top" ng-controller="NavBarCtrl">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- This renders a button in mobile views with all nav bar items contained within -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">PAMM Skeleton</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <!-- These are all our nav bar items (excluding brand, button etc) -->
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ active: isActive('/home')}"><a href="#">Home</a></li>
+                    <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- This is the main page content, this is empty and will load everything using angular routing -->
+    <div class="container">
+        <div ng-view></div>
+    </div>
+
+    <!-- Footer goes here -->
+
+</body>
+</html>
