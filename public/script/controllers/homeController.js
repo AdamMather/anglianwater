@@ -141,6 +141,9 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$window',
 
             vm.setGeotagFields = function  (lat, lon, geodata) {
 
+                document.getElementById("lat").value = lat;
+                document.getElementById("lon").value = lon;
+
                 vm.latitude = lat;
                 vm.longitude = lon;
 

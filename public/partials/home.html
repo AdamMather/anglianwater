@@ -165,7 +165,7 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="input-group">
                                     <label class="input-group-btn">
-                                        <span class="btn btn-primary">Browse&hellip; <input id="files" type=file accept="image/*;capture=camera" style="display: none;"></span>
+                                        <span class="btn btn-primary">Browse<input id="files" type=file accept="image/*;capture=camera" style="display: none;"></span>
                                     </label>
                                     <input type="text" class="form-control" readonly>
                                 </div>
@@ -177,7 +177,12 @@
                     </div>
                 </div> <!-- //end Panel Body -->
                 <div class="panel-body">
-                    <span style="float: right;"><button class="btn btn-danger" class="form-control" data-ng-click="ctrl.addApplicant()">Submit</button></span>
+                    <span style="float: right;">
+                        <button class="btn btn-danger form-control"
+                                data-ng-click="ctrl.addApplicant()">
+                        Submit
+                        </button>
+                    </span>
                 </div>
 
                 <div id="reftag">
