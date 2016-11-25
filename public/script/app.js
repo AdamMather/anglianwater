@@ -6,7 +6,8 @@
         'pammSkeleton.controllers',
         'pammSkeleton.services',
         'ngRoute',
-         'ngMessages']);
+        'ngMessages'
+         ]);
 
     app.config(['$routeProvider', function($routeProvider) {
             $routeProvider
