@@ -41,6 +41,8 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$window',
 
             vm.init = function () {
 
+                vm.refNo = "ABC-001-XYZ";
+
             }
 
             vm.init();
@@ -48,6 +50,9 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$window',
             vm.addApplicant = function  () {
 
                 //if (value === undefined) value = "";
+
+                var divRef = document.getElementById("reftag");
+                divRef.style.display = "block";
 
                 var data = {
                             applicantAreaGroup: vm.areaIdent._id,
