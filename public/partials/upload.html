@@ -1,0 +1,68 @@
+<div ng-controller="HomeCtrl as ctrl">
+    <div class="canvas">
+        <h1>Mains Water Connection Estimate</h1>
+
+        <form name="frmUpload" role="form">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Site Details</div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <div style="height:450px">
+                            <h2>Site Location</h2>
+                            <div class="form-group">
+                                <label for="imgLatitude">Image Latitude:</label>
+                                <input id="imgLatitude" name="imgLatitude" type="text" class="form-control" data-ng-model="ctrl.imgLatitude" disabled=true />
+                            </div> <!-- // end form group -->
+
+                            <div class="form-group">
+                                <label for="imgLongitude">Longitude:</label>
+                                <input id="imgLongitude" name="imgLongitude" type="text" class="form-control" data-ng-model="ctrl.imgLongitude" disabled=true />
+                            </div> <!-- // end form group -->
+                        </div>
+                        <h2>Upload Location</h2>
+                        <div class="form-group">
+                            <label for="usrLatitude">Latitude:</label>
+                            <input id="usrLatitude" name="usrLatitude" type="text" class="form-control" data-ng-model="ctrl.usrLatitude" disabled=true />
+                        </div> <!-- // end form group -->
+                        <div class="form-group">
+                            <label for="usrLongitude">Longitude:</label>
+                            <input id="usrLongitude" name="usrLongitude" type="text" class="form-control" data-ng-model="ctrl.usrLongitude" disabled=true />
+                        </div> <!-- // end form group -->
+
+                        <span id="geodata"></span>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>Site Upload</h2>
+                        <label>Upload Photograph:</label>
+                        <div class="form-group">
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="input-group">
+                                    <label class="input-group-btn">
+                                        <span class="btn btn-primary">Browse
+
+                                            <input id="files" name="file" type=file ngf-select ng-model="picFile" accept="image/*;capture=camera" style="display: none;" />
+
+                                        </span>
+                                    </label>
+                                    <input type="text" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <button id="upload" class="btn btn-primary" class="form-control" data-ng-click="ctrl.imageUpload()">Upload</button>
+                            <span id="locationData"></span>
+                        </div> <!-- // end form group -->
+
+                        <div class="row">
+                            <img ngf-src="picFile" style="width:400px; height:400px"/>
+                        </div>
+                        <h3>Site Location</h3>
+                        <div id="imageMap" style="width:400px; height:400px"></div>
+                        <h3>Upload Location</h3>
+                        <div id="userMap" style="width:400px; height:400px"></div>
+                    </div>
+                </div> <!-- //end Panel Body -->
+                <a href="#/home">Application Form</a>
+            </div>
+        </form>
+    </div>
+</div>
