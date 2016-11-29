@@ -1,7 +1,5 @@
 <div ng-controller="HomeCtrl as ctrl">
     <div class="canvas">
-        <h1>Mains Water Connection Estimate</h1>
-
         <form name="frmApplication" role="form">
             <!--
             <div class="panel panel-default">
@@ -145,40 +143,10 @@
                     </div>
                 </div> <!-- //end Panel Body -->
 
-                <div class="panel-heading">Site Details</div>
-                <div class="panel-body">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="lat">Latitude:</label>
-                            <input id="lat" name="lat" type="text" class="form-control" data-ng-model="ctrl.latitude" disabled=true />
-                        </div> <!-- // end form group -->
-                        <div class="form-group">
-                            <label for="lon">Longitude:</label>
-                            <input id="lon" name="lon" type="text" class="form-control" data-ng-model="ctrl.longitude" disabled=true />
-                        </div> <!-- // end form group -->
-
-                        <span id="geodata"></span>
-                    </div>
-                    <div class="col-md-8">
-                        <label>Site Upload:</label>
-                        <div class="form-group">
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="input-group">
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary">Browse<input id="files" type=file accept="image/*;capture=camera" style="display: none;"></span>
-                                    </label>
-                                    <input type="text" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <button id="upload" class="btn btn-primary" class="form-control" data-ng-click="ctrl.imageUpload()">Upload</button>
-                        </div> <!-- // end form group -->
-
-                        <div id="map" style="width:=500px; height:500px"></div>
-                    </div>
-                </div> <!-- //end Panel Body -->
                 <div class="panel-body">
                     <span style="float: right;">
                         <button class="btn btn-danger form-control"
+                                ng-disabled="frmApplication.txtApplicantName.$pristine || frmApplication.txtApplicantName.$invalid"
                                 data-ng-click="ctrl.addApplicant()">
                         Submit
                         </button>
@@ -189,8 +157,8 @@
                     <h1>Your Reference Number is:</h1>
                     <h2>{{ ctrl.refNo }}</h2>
                 </div>
+                <a href="#/upload">Upload Site Location</a>
             </div>
         </form>
-
     </div>
 </div>
