@@ -6,7 +6,9 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "3.3.6",
-  "org.webjars" % "angularjs" % "1.5.5"
+  "org.webjars" % "angularjs" % "1.5.5",
+  "org.webjars" % "messageformat.js" % "0.1.4-1",
+  "org.webjars" % "ng-file-upload" % "12.0.4"
 )
 
 libraryDependencies += specs2 % Test
