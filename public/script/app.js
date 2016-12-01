@@ -16,16 +16,12 @@
                     templateUrl: 'assets/partials/home.html',
                     controller: "HomeCtrl"
                 })
-           .when('/upload', {
-                    templateUrl: 'assets/partials/upload.html',
-                    controller: "HomeCtrl"
-                })
                 .when('/about', {
                     templateUrl: 'assets/partials/about.html',
                     controller: "AboutCtrl"
                 })
                 .otherwise({
-                    redirectTo: '/upload'
+                    redirectTo: '/home'
                 });
           }]);
 

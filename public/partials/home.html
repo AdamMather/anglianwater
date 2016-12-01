@@ -1,163 +1,235 @@
-<div ng-controller="HomeCtrl as ctrl">
+<div ng-controller="HomeCtrl as ctrl" xmlns="http://www.w3.org/1999/html">
     <div class="canvas">
-        <form name="frmApplication" role="form">
-            <!--
+        <h1>Mains Water Connection Estimate</h1>
+
+        <div name="frmApplication" role="form">
+
+            <div ng-if="ctrl.navigation == 1">
             <div class="panel panel-default">
-                <div class="panel-heading">Anglican Water use only: </div>
-                <div class="form-group">
-                    <label>Area:</label>
-                    <span ng-repeat="item in ctrl.areas">
-                        <input type="checkbox" checklist-model="ctrl.areaIdent._id" checklist-value="item.id"> {{item.text}}
-                    </span>
-                </div> <!-- //end form group -->
-            <!--
-                <div class="form-group">
-                    <label>Job:</label>
-                    <span ng-repeat="item in ctrl.jobs">
-                        <input type="checkbox" checklist-model="ctrl.jobIdent._id" checklist-value="item.id"> {{item.text}}
-                    </span>
-                </div> <!-- //end form group -->
-            <!--
+                <div class="panel-heading">Site Details</div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <div style="height:550px">
+                            <h2>Site Location</h2>
+                            <div class="form-group">
+                                <label for="imgLatitude">Image Latitude:</label>
+                                <input id="imgLatitude" name="imgLatitude" type="text" class="form-control" data-ng-model="ctrl.imgLatitude" disabled=true />
+                            </div> <!-- // end form group -->
+
+                            <div class="form-group">
+                                <label for="imgLongitude">Longitude:</label>
+                                <input id="imgLongitude" name="imgLongitude" type="text" class="form-control" data-ng-model="ctrl.imgLongitude" disabled=true />
+                            </div> <!-- // end form group -->
+                        </div>
+                        <h2>Upload Location</h2>
+                        <div class="form-group">
+                            <label for="usrLatitude">Latitude:</label>
+                            <input id="usrLatitude" name="usrLatitude" type="text" class="form-control" data-ng-model="ctrl.usrLatitude" disabled=true />
+                        </div> <!-- // end form group -->
+                        <div class="form-group">
+                            <label for="usrLongitude">Longitude:</label>
+                            <input id="usrLongitude" name="usrLongitude" type="text" class="form-control" data-ng-model="ctrl.usrLongitude" disabled=true />
+                        </div> <!-- // end form group -->
+
+                        <span id="geodata"></span>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>Site Upload</h2>
+                        <label>Upload Photograph:</label>
+                        <div class="form-group">
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="input-group">
+                                    <label class="input-group-btn">
+                                        <span class="btn btn-primary">Browse
+                                            <input id="files" name="file" type=file ngf-select ng-change="ctrl.uploadData()" ng-model="ctrl.picFile" accept="image/*;capture=camera" style="display: none;" required />
+                                        </span>
+                                    </label>
+                                    <input id="uploadFile" placeholder="Choose File" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <button id="upload" class="btn btn-primary" class="form-control" data-ng-click="ctrl.imageUpload()">Upload</button>
+
+                        </div> <!-- // end form group -->
+                        <div class="form-group">
+                            <span id="errorData"></span>
+                        </div>
+                        <div class="form-group">
+                            <span id="locationData"></span>
+                        </div>
+                        <h3>Site Location</h3>
+                        <div id="imageMap" style="width:400px; height:400px"></div>
+                        <h3>Upload Location</h3>
+                        <div id="userMap" style="width:400px; height:400px"></div>
+                    </div>
+                </div> <!-- //end Panel Body -->
+                <button ng-click="ctrl.navigation = 2" class="btn btn-primary btn-lg">Application Form</button>
             </div>
-            -->
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Applicant Name</div>
-                <div class="panel-body">
+            </div>
+            <div ng-if="ctrl.navigation == 2">
+                <!--
+                <div class="panel panel-default">
+                    <div class="panel-heading">Anglican Water use only: </div>
                     <div class="form-group">
-                        <label for="txtApplicantName">Applicant Name:</label>
-                        <input id="txtApplicantName" name="txtApplicantName" type="text" class="form-control" placeholder="ApplicantName" data-ng-model="ctrl.applicantName" required />
-                        <div ng-messages="frmApplication.txtApplicantName.$error" ng-if="frmApplication.txtApplicantName.$dirty">
-                            <div ng-message="required">This field is required</div>
-                        </div>
-                    </div>
-                    <!--
+                        <label>Area:</label>
+                        <span ng-repeat="item in ctrl.areas">
+                            <input type="checkbox" checklist-model="ctrl.areaIdent._id" checklist-value="item.id"> {{item.text}}
+                        </span>
+                    </div> <!-- //end form group -->
+                <!--
                     <div class="form-group">
-                        <label for="txtApplicantFAO">For the attention of:</label>
-                        <input id="txtApplicantFAO" name="txtApplicantFAO" type="text" class="form-control" placeholder="For the Attention Of..." data-ng-model="ctrl.applicantFAO" required />
-                        <div ng-messages="frmApplication.txtApplicantFAO.$error" ng-if="frmApplication.txtApplicantFAO.$dirty">
-                            <div ng-message="required">This field is required</div>
-                        </div>
-
-                    </div>
-                    -->
+                        <label>Job:</label>
+                        <span ng-repeat="item in ctrl.jobs">
+                            <input type="checkbox" checklist-model="ctrl.jobIdent._id" checklist-value="item.id"> {{item.text}}
+                        </span>
+                    </div> <!-- //end form group -->
+                <!--
                 </div>
-                <div class="panel-heading">Applicant Address</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="txtApplicantAddressLine1">Property Name / Number:</label>
-                        <input id="txtApplicantAddressLine1" name="txtApplicantAddressLine1" type="text" class="form-control" placeholder="Property Name / Number" data-ng-model="ctrl.applicantAddressLine1" required />
-                        <div ng-messages="frmApplication.txtApplicantAddressLine1.$error" ng-if="frmApplication.txtApplicantAddressLine1.$dirty">
-                            <div ng-message="required">This field is required</div>
+                -->
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Applicant Name</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="txtApplicantName">Applicant Name:</label>
+                            <input id="txtApplicantName" name="txtApplicantName" type="text" class="form-control" placeholder="ApplicantName" data-ng-model="ctrl.applicantName" required />
+                            <div ng-messages="frmApplication.txtApplicantName.$error" ng-if="frmApplication.txtApplicantName.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtApplicantAddressLine2">Street:</label>
-                        <input id="txtApplicantAddressLine2" name="txtApplicantAddressLine2" type="text" class="form-control" placeholder="Street Name" data-ng-model="ctrl.applicantAddressLine2" required />
-                        <div ng-messages="frmApplication.txtApplicantAddressLine2.$error" ng-if="frmApplication.txtApplicantAddressLine2.$dirty">
-                            <div ng-message="required">This field is required</div>
+                        <!--
+                        <div class="form-group">
+                            <label for="txtApplicantFAO">For the attention of:</label>
+                            <input id="txtApplicantFAO" name="txtApplicantFAO" type="text" class="form-control" placeholder="For the Attention Of..." data-ng-model="ctrl.applicantFAO" required />
+                            <div ng-messages="frmApplication.txtApplicantFAO.$error" ng-if="frmApplication.txtApplicantFAO.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
+
                         </div>
+                        -->
                     </div>
-                    <div class="form-group">
-                        <label for="txtApplicantAddressLine3">Village / Town:</label>
-                        <input id="txtApplicantAddressLine3" name="txtApplicantAddressLine3" type="text" class="form-control" placeholder="Village / Town" data-ng-model="ctrl.applicantAddressLine3" required />
-                        <div ng-messages="frmApplication.txtApplicantAddressLine3.$error" ng-if="frmApplication.txtApplicantAddressLine3.$dirty">
-                            <div ng-message="required">This field is required</div>
+                    <div class="panel-heading">Applicant Address</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="txtApplicantAddressLine1">Property Name / Number:</label>
+                            <input id="txtApplicantAddressLine1" name="txtApplicantAddressLine1" type="text" class="form-control" placeholder="Property Name / Number" data-ng-model="ctrl.applicantAddressLine1" required />
+                            <div ng-messages="frmApplication.txtApplicantAddressLine1.$error" ng-if="frmApplication.txtApplicantAddressLine1.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtApplicantAddressLine4">City / County:</label>
-                        <input id="txtApplicantAddressLine4" name="txtApplicantAddressLine4" type="text" class="form-control" placeholder="City / County" data-ng-model="ctrl.applicantAddressLine4" required />
-                        <div ng-messages="frmApplication.txtApplicantAddressLine4.$error" ng-if="frmApplication.txtApplicantAddressLine4.$dirty">
-                            <div ng-message="required">This field is required</div>
+                        <div class="form-group">
+                            <label for="txtApplicantAddressLine2">Street:</label>
+                            <input id="txtApplicantAddressLine2" name="txtApplicantAddressLine2" type="text" class="form-control" placeholder="Street Name" data-ng-model="ctrl.applicantAddressLine2" required />
+                            <div ng-messages="frmApplication.txtApplicantAddressLine2.$error" ng-if="frmApplication.txtApplicantAddressLine2.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtApplicantAddressPostcode">Postcode:</label>
-                        <input id="txtApplicantAddressPostcode" name="txtApplicantAddressPostcode" type="text" class="form-control" placeholder="Postcode" data-ng-model="ctrl.applicantAddressPostcode" required />
-                        <div ng-messages="frmApplication.txtApplicantAddressPostcode.$error" ng-if="frmApplication.txtApplicantAddressPostcode.$dirty">
-                            <div ng-message="required">This field is required</div>
+                        <div class="form-group">
+                            <label for="txtApplicantAddressLine3">Village / Town:</label>
+                            <input id="txtApplicantAddressLine3" name="txtApplicantAddressLine3" type="text" class="form-control" placeholder="Village / Town" data-ng-model="ctrl.applicantAddressLine3" required />
+                            <div ng-messages="frmApplication.txtApplicantAddressLine3.$error" ng-if="frmApplication.txtApplicantAddressLine3.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtApplicantAddressLandline">Landline:</label>
-                        <input id="txtApplicantAddressLandline" name="txtApplicantAddressLandline" type="text" class="form-control" placeholder="Landline Telephone Number" data-ng-model="ctrl.applicantAddressLandline" />
-                    </div>
-                </div> <!-- // end Panel Body -->
-                <div class="panel-heading">Applicant Contact</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="txtApplicantMobileNumber">Mobile:</label>
-                        <input id="txtApplicantMobileNumber" name="txtApplicantMobileNumber" type="text" class="form-control" placeholder="Mobile Number" data-ng-model="ctrl.applicantMobile" required />
-                        <div ng-messages="frmApplication.txtApplicantMobileNumber.$error" ng-if="frmApplication.txtApplicantMobileNumber.$dirty">
-                            <div ng-message="required">This field is required</div>
+                        <div class="form-group">
+                            <label for="txtApplicantAddressLine4">City / County:</label>
+                            <input id="txtApplicantAddressLine4" name="txtApplicantAddressLine4" type="text" class="form-control" placeholder="City / County" data-ng-model="ctrl.applicantAddressLine4" required />
+                            <div ng-messages="frmApplication.txtApplicantAddressLine4.$error" ng-if="frmApplication.txtApplicantAddressLine4.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtApplicantEmail">Email Address:</label>
-                        <input id="txtApplicantEmail" name="txtApplicantEmail" type="email" class="form-control" placeholder="Email Address" data-ng-model="ctrl.applicantEmail" required />
-                        <div ng-messages="frmApplication.txtApplicantEmail.$error" ng-if="frmApplication.txtApplicantEmail.$dirty">
-                            <div ng-message="required">This field is required</div>
-                            <div ng-message="email">Your email address is invalid</div>
+                        <div class="form-group">
+                            <label for="txtApplicantAddressPostcode">Postcode:</label>
+                            <input id="txtApplicantAddressPostcode" name="txtApplicantAddressPostcode" type="text" class="form-control" placeholder="Postcode" data-ng-model="ctrl.applicantAddressPostcode" required />
+                            <div ng-messages="frmApplication.txtApplicantAddressPostcode.$error" ng-if="frmApplication.txtApplicantAddressPostcode.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
                         </div>
-                    </div>
-                </div> <!-- // end Panel Body -->
-                <div class="panel-heading">Site to be supplied</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label>Are you:</label>
+                        <div class="form-group">
+                            <label for="txtApplicantAddressLandline">Landline:</label>
+                            <input id="txtApplicantAddressLandline" name="txtApplicantAddressLandline" type="text" class="form-control" placeholder="Landline Telephone Number" data-ng-model="ctrl.applicantAddressLandline" />
+                        </div>
+                    </div> <!-- // end Panel Body -->
+                    <div class="panel-heading">Applicant Contact</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="txtApplicantMobileNumber">Mobile:</label>
+                            <input id="txtApplicantMobileNumber" name="txtApplicantMobileNumber" type="text" class="form-control" placeholder="Mobile Number" data-ng-model="ctrl.applicantMobile" required />
+                            <div ng-messages="frmApplication.txtApplicantMobileNumber.$error" ng-if="frmApplication.txtApplicantMobileNumber.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtApplicantEmail">Email Address:</label>
+                            <input id="txtApplicantEmail" name="txtApplicantEmail" type="email" class="form-control" placeholder="Email Address" data-ng-model="ctrl.applicantEmail" required />
+                            <div ng-messages="frmApplication.txtApplicantEmail.$error" ng-if="frmApplication.txtApplicantEmail.$dirty">
+                                <div ng-message="required">This field is required</div>
+                                <div ng-message="email">Your email address is invalid</div>
+                            </div>
+                        </div>
+                    </div> <!-- // end Panel Body -->
+                    <div class="panel-heading">Site to be supplied</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Are you:</label>
                         <span ng-repeat="item in ctrl.siteholder">
                             <input type="checkbox" checklist-model="ctrl.siteholderIdent._id" checklist-value="item.id"> {{item.text}}
                         </span>
-                    </div> <!-- // end form-group -->
-                </div> <!-- // end Panel Body -->
-                <div class="panel-heading">Occupier Details (if known)</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="txtOccupierName">Occupier Name:</label>
-                        <input id="txtOccupierName" name="txtOccupierName" type="text" class="form-control" placeholder="Occupier Name" data-ng-model="ctrl.occupierName" />
-                        <!--
-                        <div ng-messages="frmApplication.txtOccupierName.$error" ng-if="frmApplication.txtOccupierName.$dirty">
-                            <div ng-message="required">This field is required</div>
+                        </div> <!-- // end form-group -->
+                    </div> <!-- // end Panel Body -->
+                    <div class="panel-heading">Occupier Details (if known)</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="txtOccupierName">Occupier Name:</label>
+                            <input id="txtOccupierName" name="txtOccupierName" type="text" class="form-control" placeholder="Occupier Name" data-ng-model="ctrl.occupierName" />
+                            <!--
+                            <div ng-messages="frmApplication.txtOccupierName.$error" ng-if="frmApplication.txtOccupierName.$dirty">
+                                <div ng-message="required">This field is required</div>
+                            </div>
+                            -->
+                        </div> <!-- // end form-group -->
+                        <div class="form-group">
+                            <label for="txtOccupierAddressLine1">Address:</label>
+                            <input id="txtOccupierAddressLine1" name="txtOccupierAddressLine1" type="text" class="form-control" placeholder="Address" data-ng-model="ctrl.occupierAddressLine1" />
                         </div>
-                        -->
-                    </div> <!-- // end form-group -->
-                    <div class="form-group">
-                        <label for="txtOccupierAddressLine1">Address:</label>
-                        <input id="txtOccupierAddressLine1" name="txtOccupierAddressLine1" type="text" class="form-control" placeholder="Address" data-ng-model="ctrl.occupierAddressLine1" />
-                    </div>
-                    <div class="form-group">
-                        <label for="txtOccupierLandlineTelephoneNumber">Landline Telephone Number:</label>
-                        <input id="txtOccupierLandlineTelephoneNumber" name="txtOccupierLandlineTelephoneNumber" type="text" class="form-control" placeholder="Landline Telephone Number" data-ng-model="ctrl.occupierLandlineTelephoneNumber" />
-                    </div>
-                    <div class="form-group">
-                        <label for="txtOccupierMobileTelephoneNumber">Mobile Telephone Number:</label>
-                        <input id="txtOccupierMobileTelephoneNumber" name="txtOccupierMobileTelephoneNumber" type="text" class="form-control" placeholder="Mobile Telephone Number" data-ng-model="ctrl.occupierMobileTelephoneNumber" />
-                    </div>
-                    <div class="form-group">
-                        <label for="txtOccupierDARTAccountNumber">DART Account Number:</label>
-                        <input id="txtOccupierDARTAccountNumber" name="txtOccupierDARTAccountNumber" type="text" ng-maxlength="13" class="form-control" placeholder="DART Account Number" data-ng-model="ctrl.occupierDARTAccountNumber" />
-                        <div ng-messages="frmApplication.txtOccupierDARTAccountNumber.$error" ng-if="frmApplication.txtOccupierDARTAccountNumber.$dirty">
-                            <div ng-message="maxlength">A thirteen digit number is required</div>
+                        <div class="form-group">
+                            <label for="txtOccupierLandlineTelephoneNumber">Landline Telephone Number:</label>
+                            <input id="txtOccupierLandlineTelephoneNumber" name="txtOccupierLandlineTelephoneNumber" type="text" class="form-control" placeholder="Landline Telephone Number" data-ng-model="ctrl.occupierLandlineTelephoneNumber" />
                         </div>
-                    </div>
-                </div> <!-- //end Panel Body -->
+                        <div class="form-group">
+                            <label for="txtOccupierMobileTelephoneNumber">Mobile Telephone Number:</label>
+                            <input id="txtOccupierMobileTelephoneNumber" name="txtOccupierMobileTelephoneNumber" type="text" class="form-control" placeholder="Mobile Telephone Number" data-ng-model="ctrl.occupierMobileTelephoneNumber" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtOccupierDARTAccountNumber">DART Account Number:</label>
+                            <input id="txtOccupierDARTAccountNumber" name="txtOccupierDARTAccountNumber" type="text" ng-maxlength="13" class="form-control" placeholder="DART Account Number" data-ng-model="ctrl.occupierDARTAccountNumber" />
+                            <div ng-messages="frmApplication.txtOccupierDARTAccountNumber.$error" ng-if="frmApplication.txtOccupierDARTAccountNumber.$dirty">
+                                <div ng-message="maxlength">A thirteen digit number is required</div>
+                            </div>
+                        </div>
+                    </div> <!-- //end Panel Body -->
 
-                <div class="panel-body">
+                    <div class="panel-body">
                     <span style="float: right;">
                         <button class="btn btn-danger form-control"
                                 ng-disabled="frmApplication.txtApplicantName.$pristine || frmApplication.txtApplicantName.$invalid"
                                 data-ng-click="ctrl.addApplicant()">
-                        Submit
+                            Submit
                         </button>
                     </span>
-                </div>
+                    </div>
 
-                <div id="reftag">
-                    <h1>Your Reference Number is:</h1>
-                    <h2>{{ ctrl.refNo }}</h2>
+                    <div id="reftag">
+                        <h1>Your Reference Number is:</h1>
+                        <h2>{{ ctrl.refNo }}</h2>
+
+                        <div ng-if="ctrl.picFile != ''" class="row">
+                            <img ngf-src="ctrl.picFile" style="width:400px; height:400px"/>
+                        </div>
+
+                    </div>
+                    <button ng-click="ctrl.navigation = 1" class="btn btn-primary btn-lg">Site Upload</button>
                 </div>
-                <a href="#/upload">Upload Site Location</a>
             </div>
         </form>
     </div>

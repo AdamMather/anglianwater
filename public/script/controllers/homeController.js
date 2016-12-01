@@ -41,6 +41,9 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$location', '$timeou
 
             vm.init = function () {
 
+                vm.picFile = "";
+                vm.navigation = 1;
+                vm.boolean = true;
                 vm.refNo = "ABC-001-XYZ";
 
             }
@@ -139,6 +142,15 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$location', '$timeou
                 console.log("occupierDARTAccountNumber: " + data.occupierDARTAccountNumber);
             }
 
+            vm.uploadData = function () {
+
+                var str = document.getElementById("files").value;
+                var indexOf = str.lastIndexOf("\\") + 1;
+                var displayName = str.substring(indexOf, str.length);
+
+                document.getElementById("uploadFile").value = displayName;
+            }
+
             vm.imageUpload = function  () {
                 //Get the photo from the input form
                 var input = document.getElementById('files');
@@ -154,11 +166,11 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$location', '$timeou
                 //Take the first selected file
                 fd.append("file", files[0]);
 
-                $http.post(uploadUrl, fd, {
-                    withCredentials: true,
-                    headers: {'Content-Type': undefined },
-                    transformRequest: angular.identity
-                });
+                //$http.post(uploadUrl, fd, {
+                //    withCredentials: true,
+                //    headers: {'Content-Type': undefined },
+                //    transformRequest: angular.identity
+                //});
 
                 vm.getUserLocation();
 
@@ -181,6 +193,16 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$location', '$timeou
                         var imgLongitude = (lon[0] + lon[1]/60 + lon[2]/3600) * (lonRef == "W" ? -1 : 1);
 
                         //Send the coordinates to your map
+                        if (imgLatitude == 0 && imgLongitude == 0) {
+                            var locationElement = document.getElementById("errorData");
+                            locationElement.style.color = "red";
+                            locationElement.style.fontWeight = "bold";
+                            locationElement.style.width = "20px";
+                            locationElement.innerHTML = "This image does not appear to have a geographical location attributed to it";
+
+                        }
+
+
                         var location = vm.getGeoLocation(imgLatitude,imgLongitude);
                         var imageMap = 'imageMap';
                         vm.initMap(imageMap, location);
@@ -220,6 +242,10 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$location', '$timeou
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(vm.displayLocation, vm.displayError);
                 } else {
+
+                    locationElement.style.color = "red";
+                    locationElement.style.fontWeight = "bold";
+                    locationElement.style.width = "20px";
                     document.getElementById("locationData").innerHTML = "Sorry - your browser doesn't support geolocation!";
                     //console.log("Sorry - your browser doesn't support geolocation!");
                 }
@@ -249,11 +275,15 @@ module.controller('HomeCtrl', [ '$http', '$log', '$scope', '$location', '$timeou
 
                 //get a reference to the HTML element for writing result
                 var locationElement = document.getElementById("locationData");
+                    locationElement.style.color = "red";
+                    locationElement.style.fontWeight = "bold";
+                    locationElement.style.width = "20px";
+                //locationElement.style.display = 'none';
 
                 //find out which error we have, output message accordingly
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
-                        locationElement.innerHTML = "Permission was denied";
+                        locationElement.innerHTML = "Permission to obtain location was denied";
                         break;
                     case error.POSITION_UNAVAILABLE:
                         locationElement.innerHTML = "Location data not available";
